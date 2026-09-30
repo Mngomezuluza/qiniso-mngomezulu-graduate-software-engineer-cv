@@ -60,13 +60,15 @@ export const socialLinks = [
   { label: 'Email', href: `mailto:${profile.email}` }
 ];
 
+export const spokenLanguages = ['English', 'Afrikaans', 'isiZulu', 'Setswana', 'isiXhosa'];
+
 export const highlights = [
   'IT Intern at PWD Xperts since July 2026, working across full-stack development, business intelligence, and enterprise platform support.',
   'Built role-based access control, API security, and automated reporting on production Next.js, TypeScript, and Supabase platforms.',
   'Supporting a client KPI dashboard programme on TIBCO Spotfire, TIBCO Data Virtualization, and an Enterprise Service Bus.',
   'Bachelor of Computing (Software Engineering) graduate from Belgium Campus iTversity, now completing Honours.',
   'Earlier office administration and IT support experience with strong organisational discipline.',
-  'Multilingual communicator: English, Afrikaans, isiZulu, Setswana, and isiXhosa.'
+  `Multilingual communicator: ${spokenLanguages.slice(0, -1).join(', ')}, and ${spokenLanguages.at(-1)}.`
 ];
 
 export const skills = [
@@ -451,21 +453,45 @@ export const documents = [
     type: 'DOCX'
   },
   {
-    title: 'Academic Transcript',
-    description: 'Belgium Campus academic record and results summary.',
-    href: `${base}assets/docs/AcademicPdf-Transcript.pdf`,
-    type: 'PDF'
-  },
-  {
     title: 'CV PDF',
     description: 'Printable CV version for manual review.',
     href: `${base}assets/docs/CV-Qiniso-Manqoba-Mngomezulu.pdf`,
     type: 'PDF'
   },
   {
+    title: 'Certified Academic Transcript',
+    description: 'Belgium Campus academic record, certified September 2026.',
+    href: `${base}assets/docs/Certified-Academic-Transcript-2026.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'In-Service Training Confirmation',
+    description: 'Belgium Campus letter confirming the 2026 experiential learning year.',
+    href: `${base}assets/docs/In-Service-Training-Confirmation-2026.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'Proof of Registration',
+    description: 'Belgium Campus proof of registration for the 2025 academic year.',
+    href: `${base}assets/docs/Proof-of-Registration-2025.pdf`,
+    type: 'PDF'
+  },
+  {
     title: 'Business Skills Diploma',
     description: 'Foundation Diploma in Business Skills certificate.',
     href: `${base}assets/docs/L3-FDip.Skill-Mngomezulu-Qiniso.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'ICDL e-Learner Platinum Certificate',
+    description: 'ICDL South Africa e-Learner Platinum certificate in core ICT skills (2015).',
+    href: `${base}assets/docs/ICDL-eLearner-Platinum-Certificate.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'Beyond Adventure Certificates',
+    description: 'Gap-year graduation certificate and Level 2 Adventure Related Learning certificate (2022).',
+    href: `${base}assets/docs/Beyond-Adventure-Certificates.pdf`,
     type: 'PDF'
   }
 ];
@@ -508,4 +534,12 @@ export const gallerySections = [
       { src: `${base}assets/gallery/st-benedicts-soccer-2.jpeg`, alt: 'Another football action shot from Qiniso’s St Benedict’s years.' }
     ]
   }
+];
+
+// Counted up on the home page; derived from the data above so the numbers stay accurate.
+export const impactStats = [
+  { value: projects.length, label: 'Engineering projects' },
+  { value: projects.filter((project) => project.category === 'Professional').length, label: 'Professional projects' },
+  { value: skills.find((group) => group.title === 'Languages').items.length, label: 'Programming languages' },
+  { value: spokenLanguages.length, label: 'Spoken languages' }
 ];

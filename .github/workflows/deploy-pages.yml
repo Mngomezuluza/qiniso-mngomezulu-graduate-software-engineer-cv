@@ -46,3 +46,28 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: public
+      # Fails the run if the live site is missing any image or document, or serves the
+      # 404 page (HTML) in its place.
+      - name: Check the live site serves every asset
+        env:
+          SITE: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          fetch() { curl -s -o /dev/null -w '%{http_code} %{content_type}' "$1"; }
+          for attempt in 1 2 3 4 5 6; do
+            [ "$(fetch "$SITE" | cut -d' ' -f1)" = 200 ] && break
+            sleep 10
+          done
+          failed=0
+          for path in $(cd public && find assets -type f | sort); do
+            result=$(fetch "$SITE$path")
+            echo "$result  $path"
+            case "$result" in
+              "200 text/html"*) echo "::error::$path is served as HTML (missing file)"; failed=1 ;;
+              200*) ;;
+              *) echo "::error::$path returned $result"; failed=1 ;;
+            esac
+          done
+          exit $failed

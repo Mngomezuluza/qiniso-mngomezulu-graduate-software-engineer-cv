@@ -8,6 +8,7 @@ import {
   experience,
   gallerySections,
   highlights,
+  impactStats,
   navItems,
   profile,
   projectIntro,
@@ -242,6 +243,130 @@ function useRevealOnScroll(rootRef) {
   }, [rootRef]);
 }
 
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // Older browsers, or the Clipboard API being blocked: fall back to a hidden textarea.
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.setAttribute('readonly', '');
+    field.style.position = 'fixed';
+    field.style.opacity = '0';
+    document.body.appendChild(field);
+    field.select();
+    let copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch {
+      copied = false;
+    }
+    field.remove();
+    return copied;
+  }
+}
+
+function CopyEmailButton({ email }) {
+  const [status, setStatus] = useState('idle');
+  const resetTimer = useRef(0);
+
+  useEffect(() => () => clearTimeout(resetTimer.current), []);
+
+  const handleCopy = async () => {
+    setStatus((await copyText(email)) ? 'copied' : 'failed');
+    clearTimeout(resetTimer.current);
+    resetTimer.current = setTimeout(() => setStatus('idle'), 2200);
+  };
+
+  const label = { idle: 'Copy', copied: 'Copied!', failed: 'Press Ctrl+C' }[status];
+  return (
+    <button
+      type="button"
+      className={`copy-button ${status === 'copied' ? 'is-copied' : ''}`}
+      onClick={handleCopy}
+      aria-label={`Copy email address ${email}`}
+    >
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+        {status === 'copied' ? (
+          <path fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" d="m5 12.5 4.5 4.5L19 7.5" />
+        ) : (
+          <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round">
+            <rect x="8" y="8" width="12" height="12" rx="2.5" />
+            <path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" />
+          </g>
+        )}
+      </svg>
+      <span>{label}</span>
+      <span className="visually-hidden" role="status">
+        {status === 'copied' ? 'Email address copied to clipboard' : ''}
+      </span>
+    </button>
+  );
+}
+
+function CountUp({ value, duration = 1400 }) {
+  const ref = useRef(null);
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplay(value);
+      return undefined;
+    }
+
+    let frame = 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        const start = performance.now();
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - (1 - progress) ** 3;
+          setDisplay(Math.round(eased * value));
+          if (progress < 1) frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+      },
+      { threshold: 0.6 }
+    );
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [value, duration]);
+
+  return (
+    <span ref={ref} aria-hidden="true">
+      {display}
+    </span>
+  );
+}
+
+function ImpactStats() {
+  return (
+    <section className="impact-strip" aria-label="At a glance">
+      {impactStats.map((stat, index) => (
+        <TiltCard
+          key={stat.label}
+          className="impact-card glass-card reveal-card depth-card"
+          style={{ '--reveal-delay': `${index * 90}ms` }}
+        >
+          <strong className="impact-value">
+            <CountUp value={stat.value} />
+            <span className="visually-hidden">{stat.value}</span>
+          </strong>
+          <span className="impact-label">{stat.label}</span>
+        </TiltCard>
+      ))}
+    </section>
+  );
+}
+
 function SectionHeading({ eyebrow, title, description }) {
   return (
     <div className="section-heading">
@@ -305,7 +430,10 @@ function DashboardPage() {
             <div className="hero-meta">
               <span>{profile.location}</span>
               <span>{profile.phone}</span>
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              <span className="email-pill">
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                <CopyEmailButton email={profile.email} />
+              </span>
             </div>
             <div className="hero-actions">
               <a className="primary-button" href={`${import.meta.env.BASE_URL}assets/docs/Qiniso_Mngomezulu_CV_ATS.docx`} download>
@@ -340,6 +468,8 @@ function DashboardPage() {
           <p>Built for recruiter review, with clear routing, downloadable credentials, and a richer portfolio narrative.</p>
         </div>
       </section>
+
+      <ImpactStats />
 
       <section className="dashboard-grid">
         {dashboardCards.map((card, index) => (
@@ -850,10 +980,13 @@ function ContactPage() {
         <TiltCard as="article" className="glass-card reveal-card depth-card">
           <h2>Direct Contact</h2>
           <div className="contact-cards">
-            <a href={`mailto:${profile.email}`} className="contact-card">
-              <span>Email</span>
-              <strong>{profile.email}</strong>
-            </a>
+            <div className="contact-card contact-card-split">
+              <a href={`mailto:${profile.email}`} className="contact-card-link">
+                <span>Email</span>
+                <strong>{profile.email}</strong>
+              </a>
+              <CopyEmailButton email={profile.email} />
+            </div>
             <a href={`tel:${profile.phone.replace(/\s+/g, '')}`} className="contact-card">
               <span>Phone</span>
               <strong>{profile.phone}</strong>
