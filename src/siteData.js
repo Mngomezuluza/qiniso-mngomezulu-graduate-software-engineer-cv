@@ -1,3 +1,8 @@
+const base = import.meta.env.BASE_URL;
+
+// Published to GitHub Pages as static files, where there is no API to store contact messages.
+export const staticSite = import.meta.env.VITE_STATIC_SITE === 'true';
+
 export const navItems = [
   { to: '/', label: 'Dashboard' },
   { to: '/about', label: 'About' },
@@ -25,7 +30,9 @@ export const dashboardCards = [
   {
     title: 'Recruiter Contact',
     to: '/contact',
-    description: 'Share your company details and enquiry so it can be stored for follow-up.'
+    description: staticSite
+      ? 'Share your company details and enquiry by email for follow-up.'
+      : 'Share your company details and enquiry so it can be stored for follow-up.'
   }
 ];
 
@@ -41,7 +48,7 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/qiniso-manqoba-mngomezulu-132b98377',
   summary:
     'Software engineering graduate and IT Intern with hands-on experience across full-stack development, business intelligence and enterprise platform support. I build and secure production features on a multi-tenant business platform (Next.js, TypeScript, PostgreSQL/Supabase, Vercel) and support a client KPI dashboard programme built on TIBCO Spotfire, TIBCO Data Virtualization and an Enterprise Service Bus.',
-  portrait: '/assets/images/qiniso-mngomezulu-profile.jpeg',
+  portrait: `${base}assets/images/qiniso-mngomezulu-profile.jpeg`,
   availability:
     'Open to graduate software engineering, full-stack development, backend development, and junior platform roles.'
 };
@@ -217,11 +224,11 @@ export const projects = [
     tech: ['Unity', 'C#', 'OpenXR', 'XR Interaction Toolkit', 'Unity Input System'],
     skills: ['VR application development', '3D interaction design', 'Unity scripting', 'Input handling', 'Geometry manipulation', 'Feature integration'],
     github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
+    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
     gallery: [
-      '/assets/gallery/unity-capstone.jpeg',
-      '/assets/gallery/vr-headset-integration.jpeg',
-      '/assets/gallery/capstone-team.jpeg'
+      `${base}assets/gallery/unity-capstone.jpeg`,
+      `${base}assets/gallery/vr-headset-integration.jpeg`,
+      `${base}assets/gallery/capstone-team.jpeg`
     ]
   },
   {
@@ -253,8 +260,8 @@ export const projects = [
     tech: ['C#', 'F#', 'Avalonia UI', '.NET', 'Math and optimisation libraries'],
     skills: ['Desktop application development', 'Cross-language integration', 'UI design for technical systems', 'Structured input processing', 'Optimisation workflows'],
     github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/aws-azure-summit.jpeg']
+    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
+    gallery: [`${base}assets/gallery/aws-azure-summit.jpeg`]
   },
   {
     title: 'Maintenance Management App',
@@ -286,8 +293,8 @@ export const projects = [
     tech: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'JavaScript', 'HTML', 'CSS'],
     skills: ['Full-stack development', 'REST API design', 'CRUD implementation', 'NoSQL integration', 'Schema validation', 'Frontend data rendering'],
     github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/csr-lupas-walk.jpeg']
+    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
+    gallery: [`${base}assets/gallery/csr-lupas-walk.jpeg`]
   },
   {
     title: 'Poised Project Management System',
@@ -318,8 +325,8 @@ export const projects = [
     tech: ['Java', 'JDBC', 'MariaDB', 'SQL'],
     skills: ['Java development', 'Relational database integration', 'SQL query design', 'Console application development', 'Business rule implementation'],
     github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/st-benedicts-awards.jpeg']
+    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
+    gallery: [`${base}assets/gallery/st-benedicts-awards.jpeg`]
   },
   {
     title: 'Customer Churn Prediction System',
@@ -350,8 +357,8 @@ export const projects = [
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'Jupyter Notebook'],
     skills: ['Machine learning workflow development', 'Model deployment', 'Feature engineering', 'Dashboard creation', 'Prediction pipeline design'],
     github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/beyond-adventure-graduation.jpeg']
+    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
+    gallery: [`${base}assets/gallery/beyond-adventure-graduation.jpeg`]
   },
   {
     title: 'Student Performance Prediction System',
@@ -382,8 +389,8 @@ export const projects = [
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'HTML', 'CSS', 'JavaScript'],
     skills: ['Predictive model development', 'Feature engineering', 'Model deployment', 'Interactive dashboard development', 'ML application integration'],
     github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/ironman-completion.jpeg']
+    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
+    gallery: [`${base}assets/gallery/ironman-completion.jpeg`]
   }
 ];
 
@@ -431,25 +438,25 @@ export const documents = [
   {
     title: 'ATS CV',
     description: 'Applicant tracking system friendly CV in Word format, updated with current experience.',
-    href: '/assets/docs/Qiniso_Mngomezulu_CV_ATS.docx',
+    href: `${base}assets/docs/Qiniso_Mngomezulu_CV_ATS.docx`,
     type: 'DOCX'
   },
   {
     title: 'Academic Transcript',
     description: 'Belgium Campus academic record and results summary.',
-    href: '/assets/docs/AcademicPdf-Transcript.pdf',
+    href: `${base}assets/docs/AcademicPdf-Transcript.pdf`,
     type: 'PDF'
   },
   {
     title: 'CV PDF',
     description: 'Printable CV version for manual review.',
-    href: '/assets/docs/CV-Qiniso-Manqoba-Mngomezulu.pdf',
+    href: `${base}assets/docs/CV-Qiniso-Manqoba-Mngomezulu.pdf`,
     type: 'PDF'
   },
   {
     title: 'Business Skills Diploma',
     description: 'Foundation Diploma in Business Skills certificate.',
-    href: '/assets/docs/L3-FDip.Skill-Mngomezulu-Qiniso.pdf',
+    href: `${base}assets/docs/L3-FDip.Skill-Mngomezulu-Qiniso.pdf`,
     type: 'PDF'
   }
 ];
@@ -467,29 +474,29 @@ export const gallerySections = [
     title: 'Innovation and Events',
     description: 'Conference exposure, teamwork, and project showcase moments.',
     images: [
-      { src: '/assets/gallery/aws-azure-summit.jpeg', alt: 'Qiniso at the AWS Summit Johannesburg event.' },
-      { src: '/assets/gallery/capstone-team.jpeg', alt: 'Qiniso with teammates at a formal graduation or project event.' },
-      { src: '/assets/gallery/unity-capstone.jpeg', alt: 'VR capstone poster presentation showing the project overview.' },
-      { src: '/assets/gallery/vr-headset-integration.jpeg', alt: 'Qiniso wearing a VR headset while testing the project setup.' }
+      { src: `${base}assets/gallery/aws-azure-summit.jpeg`, alt: 'Qiniso at the AWS Summit Johannesburg event.' },
+      { src: `${base}assets/gallery/capstone-team.jpeg`, alt: 'Qiniso with teammates at a formal graduation or project event.' },
+      { src: `${base}assets/gallery/unity-capstone.jpeg`, alt: 'VR capstone poster presentation showing the project overview.' },
+      { src: `${base}assets/gallery/vr-headset-integration.jpeg`, alt: 'Qiniso wearing a VR headset while testing the project setup.' }
     ]
   },
   {
     title: 'Beyond Adventure',
     description: 'Leadership, resilience, physical endurance, and growth beyond the classroom.',
     images: [
-      { src: '/assets/gallery/beyond-adventure-activities.jpeg', alt: 'Qiniso taking part in Beyond Adventure physical activities.' },
-      { src: '/assets/gallery/beyond-adventure-graduation.jpeg', alt: 'Qiniso with peers at the Beyond Adventure graduation.' },
-      { src: '/assets/gallery/ironman-completion.jpeg', alt: 'Qiniso during an endurance or team-building challenge.' },
-      { src: '/assets/gallery/csr-lupas-walk.jpeg', alt: 'Community or outreach event photo connected to CSR activities.' }
+      { src: `${base}assets/gallery/beyond-adventure-activities.jpeg`, alt: 'Qiniso taking part in Beyond Adventure physical activities.' },
+      { src: `${base}assets/gallery/beyond-adventure-graduation.jpeg`, alt: 'Qiniso with peers at the Beyond Adventure graduation.' },
+      { src: `${base}assets/gallery/ironman-completion.jpeg`, alt: 'Qiniso during an endurance or team-building challenge.' },
+      { src: `${base}assets/gallery/csr-lupas-walk.jpeg`, alt: 'Community or outreach event photo connected to CSR activities.' }
     ]
   },
   {
     title: 'School Journey',
     description: 'Moments from St Benedict’s that reflect discipline, recognition, and team sport.',
     images: [
-      { src: '/assets/gallery/st-benedicts-awards.jpeg', alt: 'Qiniso receiving an award at St Benedict’s.' },
-      { src: '/assets/gallery/st-benedicts-soccer.jpeg', alt: 'Qiniso playing soccer for St Benedict’s.' },
-      { src: '/assets/gallery/st-benedicts-soccer-2.jpeg', alt: 'Another football action shot from Qiniso’s St Benedict’s years.' }
+      { src: `${base}assets/gallery/st-benedicts-awards.jpeg`, alt: 'Qiniso receiving an award at St Benedict’s.' },
+      { src: `${base}assets/gallery/st-benedicts-soccer.jpeg`, alt: 'Qiniso playing soccer for St Benedict’s.' },
+      { src: `${base}assets/gallery/st-benedicts-soccer-2.jpeg`, alt: 'Another football action shot from Qiniso’s St Benedict’s years.' }
     ]
   }
 ];

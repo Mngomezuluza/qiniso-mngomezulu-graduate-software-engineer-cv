@@ -15,6 +15,7 @@ import {
   skills,
   softSkills,
   socialLinks,
+  staticSite,
   transcriptSnapshot
 } from './siteData.js';
 
@@ -99,7 +100,7 @@ function HeroCluster() {
       <div className="hero-cluster-layer cluster-grid" aria-hidden="true" />
       <div className="hero-cluster-image-wrap">
         <img
-          src="/assets/images/cluster-image.png"
+          src={`${import.meta.env.BASE_URL}assets/images/cluster-image.png`}
           alt="Collage featuring Qiniso in formal attire, sports, VR, leadership, and software engineering settings"
         />
       </div>
@@ -173,7 +174,7 @@ function DashboardPage() {
               <a href={`mailto:${profile.email}`}>{profile.email}</a>
             </div>
             <div className="hero-actions">
-              <a className="primary-button" href="/assets/docs/Qiniso_Mngomezulu_CV_ATS.docx" download>
+              <a className="primary-button" href={`${import.meta.env.BASE_URL}assets/docs/Qiniso_Mngomezulu_CV_ATS.docx`} download>
                 Download CV
               </a>
               <NavLink to="/contact" className="secondary-button">
@@ -230,7 +231,7 @@ function DashboardPage() {
             <li>Detailed project breakdowns with features, build steps, and skills demonstrated</li>
             <li>Downloadable CV and academic documents</li>
             <li>Visual highlights from school, Beyond Adventure, and project work</li>
-            <li>A recruiter form that stores contact details and company information</li>
+            <li>{staticSite ? 'A recruiter form that emails contact details and company information' : 'A recruiter form that stores contact details and company information'}</li>
           </ul>
         </TiltCard>
       </section>
@@ -546,6 +547,27 @@ function ContactPage() {
       return;
     }
 
+    if (staticSite) {
+      const subject = `CV enquiry from ${trimmedValues.fullName} (${trimmedValues.company})`;
+      const body = [
+        `Name: ${trimmedValues.fullName}`,
+        `Email: ${trimmedValues.email}`,
+        `Company: ${trimmedValues.company}`,
+        trimmedValues.role ? `Role or team: ${trimmedValues.role}` : null,
+        '',
+        trimmedValues.message
+      ]
+        .filter((line) => line !== null)
+        .join('\n');
+
+      window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setSubmitState({
+        status: 'success',
+        message: 'Your email app should now open with the message ready to send.'
+      });
+      return;
+    }
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -576,7 +598,11 @@ function ContactPage() {
       <SectionHeading
         eyebrow="Contact"
         title="Connect for opportunities"
-        description="Recruiters and hiring teams can submit details here, and the information will be stored in the database for follow-up."
+        description={
+          staticSite
+            ? 'Recruiters and hiring teams can submit details here, and the form will open an email ready to send.'
+            : 'Recruiters and hiring teams can submit details here, and the information will be stored in the database for follow-up.'
+        }
       />
 
       <section className="content-grid contact-layout">
@@ -643,7 +669,7 @@ function ContactPage() {
           ) : null}
 
           <button type="submit" className="primary-button">
-            Save and send message
+            {staticSite ? 'Send message by email' : 'Save and send message'}
           </button>
         </TiltCard>
       </section>
@@ -653,7 +679,7 @@ function ContactPage() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '') || '/'}>
       <Routes>
         <Route path="/" element={<DashboardPage />} />
         <Route path="/about" element={<AboutPage />} />
