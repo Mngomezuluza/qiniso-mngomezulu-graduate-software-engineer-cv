@@ -1530,3 +1530,176 @@ a:focus {
     padding: 0.55rem 0.9rem;
   }
 }
+
+/* ---------- Letter of motivation ---------- */
+
+.letter-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.secondary-button.is-copied {
+  background: #1c8a5a;
+  color: #fff;
+}
+
+.letter-card {
+  max-width: 52rem;
+  padding: clamp(1.4rem, 4vw, 3rem);
+}
+
+.letter-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 1.6rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.letter-name {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.letter-role {
+  margin: 0.3rem 0 0;
+  color: var(--primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.letter-head address {
+  font-style: normal;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+.letter-card a {
+  color: var(--primary);
+  overflow-wrap: anywhere;
+}
+
+.letter-card a:hover {
+  text-decoration: underline;
+}
+
+.letter-body p {
+  margin: 0 0 1.1rem;
+  font-size: 1.04rem;
+  line-height: 1.75;
+}
+
+.letter-body .letter-closing {
+  margin: 1.8rem 0 0.4rem;
+}
+
+.letter-body .letter-signature {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+
+.letter-signature strong {
+  font-size: 1.05rem;
+  color: var(--text-main);
+}
+
+/* Printing the letter page gives a plain one-page letter: no header, buttons, or card styling. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 18mm;
+  }
+
+  body {
+    min-height: 0;
+    background: #fff;
+  }
+
+  .letter-page .site-header,
+  .letter-page .bg-orb,
+  .letter-page .section-heading,
+  .letter-page .letter-toolbar {
+    display: none !important;
+  }
+
+  .letter-page .page-main {
+    display: block;
+    width: auto;
+    padding: 0;
+    animation: none;
+    transform: none;
+  }
+
+  .letter-page .letter-card {
+    max-width: none;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    opacity: 1;
+    translate: none;
+    transform: none;
+  }
+
+  .letter-page .letter-card,
+  .letter-page .letter-card address,
+  .letter-page .letter-card .letter-signature,
+  .letter-page .letter-signature strong {
+    color: #1a1a1a;
+  }
+
+  .letter-page .letter-card a,
+  .letter-page .letter-role {
+    color: #145da0;
+  }
+
+  .letter-head {
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom-color: #c9d3de;
+  }
+
+  .letter-head address {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .letter-page .letter-head address a {
+    overflow-wrap: normal;
+    white-space: nowrap;
+  }
+
+  .letter-name {
+    font-size: 15pt;
+  }
+
+  .letter-role,
+  .letter-head address {
+    font-size: 9.5pt;
+  }
+
+  .letter-body p {
+    margin-bottom: 0.7em;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .letter-body .letter-closing {
+    margin-top: 1.2em;
+  }
+
+  .letter-body .letter-signature {
+    font-size: 9.5pt;
+  }
+}
