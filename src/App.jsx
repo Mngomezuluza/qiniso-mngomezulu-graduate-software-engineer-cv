@@ -9,6 +9,7 @@ import {
   gallerySections,
   highlights,
   impactStats,
+  motivationLetter,
   navItems,
   profile,
   projectIntro,
@@ -101,7 +102,7 @@ function HeroCluster() {
       <div className="hero-cluster-layer cluster-grid" aria-hidden="true" />
       <div className="hero-cluster-image-wrap">
         <img
-          src={`${import.meta.env.BASE_URL}assets/images/cluster-image.png`}
+          src={`${import.meta.env.BASE_URL}assets/images/cluster-image.webp`}
           alt="Collage featuring Qiniso in formal attire, sports, VR, leadership, and software engineering settings"
         />
       </div>
@@ -267,18 +268,24 @@ async function copyText(text) {
   }
 }
 
-function CopyEmailButton({ email }) {
+// Returns 'idle' | 'copied' | 'failed' and a copy function; the status resets after a moment.
+function useCopyStatus(text) {
   const [status, setStatus] = useState('idle');
   const resetTimer = useRef(0);
 
   useEffect(() => () => clearTimeout(resetTimer.current), []);
 
-  const handleCopy = async () => {
-    setStatus((await copyText(email)) ? 'copied' : 'failed');
+  const copy = async () => {
+    setStatus((await copyText(text)) ? 'copied' : 'failed');
     clearTimeout(resetTimer.current);
     resetTimer.current = setTimeout(() => setStatus('idle'), 2200);
   };
 
+  return [status, copy];
+}
+
+function CopyEmailButton({ email }) {
+  const [status, handleCopy] = useCopyStatus(email);
   const label = { idle: 'Copy', copied: 'Copied!', failed: 'Press Ctrl+C' }[status];
   return (
     <button
@@ -377,12 +384,12 @@ function SectionHeading({ eyebrow, title, description }) {
   );
 }
 
-function PageShell({ children }) {
+function PageShell({ className = '', children }) {
   const shellRef = useRef(null);
   useRevealOnScroll(shellRef);
 
   return (
-    <div className="page-shell" ref={shellRef}>
+    <div className={`page-shell ${className}`.trim()} ref={shellRef}>
       <div className="bg-orb bg-orb-left" aria-hidden="true" />
       <div className="bg-orb bg-orb-right" aria-hidden="true" />
       <header className="site-header">
@@ -494,6 +501,7 @@ function DashboardPage() {
           <ul className="detail-list">
             <li>Detailed project breakdowns with features, build steps, and skills demonstrated</li>
             <li>Downloadable CV and academic documents</li>
+            <li>A general letter of motivation, ready to print or copy</li>
             <li>Visual highlights from school, Beyond Adventure, and project work</li>
             <li>{staticSite ? 'A recruiter form that emails contact details and company information' : 'A recruiter form that stores contact details and company information'}</li>
           </ul>
@@ -893,6 +901,103 @@ function CredentialsPage() {
   );
 }
 
+const letterSignOff = [
+  profile.name,
+  `${profile.phone} | ${profile.email}`,
+  `LinkedIn: ${profile.linkedin.replace(/^https:\/\/(www\.)?/, '')}`,
+  `Portfolio: ${profile.portfolio.replace(/^https:\/\//, '').replace(/\/$/, '')}`
+];
+
+const letterPlainText = [
+  motivationLetter.greeting,
+  ...motivationLetter.paragraphs,
+  [motivationLetter.closing, ...letterSignOff].join('\n')
+].join('\n\n');
+
+function CopyLetterButton() {
+  const [status, handleCopy] = useCopyStatus(letterPlainText);
+  const label = {
+    idle: 'Copy letter text',
+    copied: 'Copied to clipboard',
+    failed: 'Copy failed: select the text instead'
+  }[status];
+
+  return (
+    <button type="button" className={`secondary-button ${status === 'copied' ? 'is-copied' : ''}`} onClick={handleCopy}>
+      {label}
+      <span className="visually-hidden" role="status">
+        {status === 'copied' ? 'Letter copied to clipboard' : ''}
+      </span>
+    </button>
+  );
+}
+
+function MotivationPage() {
+  // The page title becomes the suggested file name when the letter is saved as a PDF.
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = `${profile.name} - Letter of Motivation`;
+    return () => {
+      document.title = previousTitle;
+    };
+  }, []);
+
+  return (
+    <PageShell className="letter-page">
+      <SectionHeading
+        eyebrow="Motivation"
+        title="Letter of motivation"
+        description="A general letter about who I am, the work I have done so far, and the kind of role I am looking for."
+      />
+
+      <div className="letter-toolbar">
+        <button type="button" className="primary-button" onClick={() => window.print()}>
+          Print or save as PDF
+        </button>
+        <CopyLetterButton />
+        <Link to="/credentials" className="secondary-button">
+          CV and credentials
+        </Link>
+      </div>
+
+      <article className="glass-card letter-card reveal-card">
+        <header className="letter-head">
+          <div>
+            <p className="letter-name">{profile.name}</p>
+            <p className="letter-role">{profile.headline}</p>
+          </div>
+          <address>
+            {profile.location}
+            <br />
+            <a href={`tel:${profile.phone.replace(/\s+/g, '')}`}>{profile.phone}</a>
+            <br />
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          </address>
+        </header>
+
+        <div className="letter-body">
+          <p>{motivationLetter.greeting}</p>
+          {motivationLetter.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+          <p className="letter-closing">{motivationLetter.closing}</p>
+          <p className="letter-signature">
+            <strong>{profile.name}</strong>
+            <br />
+            <a href={profile.linkedin} target="_blank" rel="noreferrer">
+              {letterSignOff[2]}
+            </a>
+            <br />
+            <a href={profile.portfolio} target="_blank" rel="noreferrer">
+              {letterSignOff[3]}
+            </a>
+          </p>
+        </div>
+      </article>
+    </PageShell>
+  );
+}
+
 function ContactPage() {
   const [formState, setFormState] = useState(initialForm);
   const [submitState, setSubmitState] = useState({ status: 'idle', message: '' });
@@ -1060,6 +1165,7 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:slug" element={<ProjectDetailPage />} />
         <Route path="/credentials" element={<CredentialsPage />} />
+        <Route path="/motivation" element={<MotivationPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </BrowserRouter>

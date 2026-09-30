@@ -8,6 +8,7 @@ export const navItems = [
   { to: '/about', label: 'About' },
   { to: '/projects', label: 'Projects' },
   { to: '/credentials', label: 'Credentials' },
+  { to: '/motivation', label: 'Motivation' },
   { to: '/contact', label: 'Contact' }
 ];
 
@@ -46,6 +47,7 @@ export const profile = {
   github: 'https://github.com/Mngomezuluza',
   githubSecondary: 'https://github.com/QinisoMngo',
   linkedin: 'https://www.linkedin.com/in/qiniso-manqoba-mngomezulu-132b98377',
+  portfolio: 'https://mngomezuluza.github.io/qiniso-mngomezulu-graduate-software-engineer-cv/',
   summary:
     'Software engineering graduate and IT Intern with hands-on experience across full-stack development, business intelligence and enterprise platform support. I build and secure production features on a multi-tenant business platform (Next.js, TypeScript, PostgreSQL/Supabase, Vercel) and support a client KPI dashboard programme built on TIBCO Spotfire, TIBCO Data Virtualization and an Enterprise Service Bus.',
   portrait: `${base}assets/images/qiniso-mngomezulu-profile.jpeg`,
@@ -234,7 +236,7 @@ export const projects = [
     ],
     tech: ['Unity', 'C#', 'OpenXR', 'XR Interaction Toolkit', 'Unity Input System'],
     skills: ['VR application development', '3D interaction design', 'Unity scripting', 'Input handling', 'Geometry manipulation', 'Feature integration'],
-    github: profile.github,
+    github: 'https://github.com/ReinardPieters/VR_Interactive_Modelling_Application',
     image: `${base}assets/gallery/vr-headset-integration.jpeg`,
     gallery: [
       `${base}assets/gallery/unity-capstone.jpeg`,
@@ -272,7 +274,7 @@ export const projects = [
     ],
     tech: ['C#', 'F#', 'Avalonia UI', '.NET', 'Math and optimisation libraries'],
     skills: ['Desktop application development', 'Cross-language integration', 'UI design for technical systems', 'Structured input processing', 'Optimisation workflows'],
-    github: profile.github
+    github: 'https://github.com/RoundRobinHood/LPR381'
   },
   {
     title: 'Maintenance Management App',
@@ -304,8 +306,7 @@ export const projects = [
       'Implemented filtering, updates, and archiving workflows.'
     ],
     tech: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'JavaScript', 'HTML', 'CSS'],
-    skills: ['Full-stack development', 'REST API design', 'CRUD implementation', 'NoSQL integration', 'Schema validation', 'Frontend data rendering'],
-    github: profile.github
+    skills: ['Full-stack development', 'REST API design', 'CRUD implementation', 'NoSQL integration', 'Schema validation', 'Frontend data rendering']
   },
   {
     title: 'Poised Project Management System',
@@ -336,8 +337,7 @@ export const projects = [
       'Developed the menu-driven workflow and business rules.'
     ],
     tech: ['Java', 'JDBC', 'MariaDB', 'SQL'],
-    skills: ['Java development', 'Relational database integration', 'SQL query design', 'Console application development', 'Business rule implementation'],
-    github: profile.github
+    skills: ['Java development', 'Relational database integration', 'SQL query design', 'Console application development', 'Business rule implementation']
   },
   {
     title: 'Customer Churn Prediction System',
@@ -369,7 +369,7 @@ export const projects = [
     ],
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'Jupyter Notebook'],
     skills: ['Machine learning workflow development', 'Model deployment', 'Feature engineering', 'Dashboard creation', 'Prediction pipeline design'],
-    github: profile.github
+    github: 'https://github.com/Enderphantom01/MLG-381-Assignment-2'
   },
   {
     title: 'Student Performance Prediction System',
@@ -401,7 +401,7 @@ export const projects = [
     ],
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'HTML', 'CSS', 'JavaScript'],
     skills: ['Predictive model development', 'Feature engineering', 'Model deployment', 'Interactive dashboard development', 'ML application integration'],
-    github: profile.github
+    github: 'https://github.com/Enderphantom01/MLG-381-Assignment-1'
   }
 ];
 
@@ -454,7 +454,7 @@ export const documents = [
   },
   {
     title: 'CV PDF',
-    description: 'Printable CV version for manual review.',
+    description: 'The same current CV as a PDF, ready to view or print on any device.',
     href: `${base}assets/docs/CV-Qiniso-Manqoba-Mngomezulu.pdf`,
     type: 'PDF'
   },
@@ -496,11 +496,25 @@ export const documents = [
   }
 ];
 
+// A general letter, not written for one position, so it can go with any application.
+export const motivationLetter = {
+  greeting: 'Dear Hiring Manager,',
+  paragraphs: [
+    'I am writing to introduce myself and to express my interest in joining your organisation as a graduate software engineer. I have completed all of the academic modules of my Bachelor of Computing (Software Engineering) at Belgium Campus iTversity, with a weighted average of 69.8% and 24 distinctions, and I am now in the degree\'s final NQF level 8 year, which combines 12 months of in-service training with a dissertation. I am looking for a team where I can build real software, take responsibility early and keep growing as an engineer.',
+    'Since July 2026 I have worked as an IT Intern at PWD Xperts, where my work goes into production systems rather than classroom exercises. On the company\'s multi-tenant business platform, built with Next.js, TypeScript and PostgreSQL on Supabase, I designed and built the role-based access control layer across the HR, finance, hotel operations and tender modules. I secured API routes that had no authentication by adding login checks, company scoping and audit logging, and wrote regression tests to confirm the fixes. For the CEO\'s PhD research platform, I built an automated bi-weekly reporting system that runs from a scheduled data pipeline, through an admin review-and-approval step, to email delivery.',
+    'The internship has also taught me how systems fail and how to support the people who rely on them. I contributed to a root cause analysis of production outages across TIBCO Spotfire, TIBCO Data Virtualization and an Enterprise Service Bus, working from server logs and configuration files to identify causes such as a missing JDK runtime and a TLS certificate mismatch. I write Business Requirements Documents for a client\'s KPI dashboard programme, administer Microsoft 365, and led the company\'s migration from OneDrive to SharePoint. When our Project Manager left, I took over several internal client projects, keeping their plans current and following up with vendors.',
+    'My studies gave me a broad foundation in C#, Java, JavaScript, Python and SQL, as well as databases, web development, machine learning and software testing. In team projects I contributed to a Unity VR modelling application, a linear and integer programming solver with a C# interface and an F# engine, and machine learning applications that predict customer churn and student performance. I am also completing the HyperionDev Full Stack Web and Software Engineering Bootcamp with Stellenbosch University to deepen my full-stack practice.',
+    'Outside technology, serving as vice-captain in first-team sport at St Benedict\'s College and completing a gap year with Beyond Adventure taught me discipline, resilience and how to perform in a team under pressure. Earlier work in office administration and IT support showed me that good technology is about serving people well. I speak English, Afrikaans, isiZulu, Setswana and isiXhosa, which helps me work comfortably with a wide range of colleagues and clients.',
+    'I am interested in graduate software engineering, full-stack and backend development, and junior platform roles. I learn quickly when I am trusted with real responsibility, and I take ownership of the work I am given. I would welcome the opportunity to discuss how I can contribute to your team.'
+  ],
+  closing: 'Yours sincerely,'
+};
+
 export const transcriptSnapshot = [
   'Mathematics 181: 82%',
   'Programming 181: 78%',
   'Linear Programming 181: 71%',
-  'Web Programming 181: 63%',
+  'Web Programming 281: 77%',
   'Innovation and Leadership 101/102: 85%'
 ];
 
