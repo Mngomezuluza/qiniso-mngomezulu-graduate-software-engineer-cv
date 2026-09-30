@@ -5,6 +5,7 @@ import {
   dashboardCards,
   documents,
   education,
+  experience,
   gallerySections,
   highlights,
   navItems,
@@ -163,7 +164,7 @@ function DashboardPage() {
 
         <section className="hero-panel nocta-hero-panel">
           <TiltCard className="hero-copy glass-card reveal-card depth-card nocta-copy-card">
-            <p className="hero-eyebrow">{profile.title}</p>
+            <p className="hero-eyebrow">{profile.headline}</p>
             <h1 className="hero-title">{profile.name}</h1>
             <p className="hero-summary">{profile.summary}</p>
             <div className="hero-meta">
@@ -245,6 +246,24 @@ function AboutPage() {
         title="Professional summary and story"
         description="A clearer view of technical strengths, academic direction, and the personal journey behind the work."
       />
+
+      <TiltCard as="section" className="glass-card reveal-card depth-card">
+        <h2>Experience</h2>
+        <div className="timeline">
+          {experience.map((job) => (
+            <div key={`${job.company}-${job.period}`} className="timeline-item">
+              <p className="timeline-period">{job.period}</p>
+              <h3>{job.role}</h3>
+              <p className="timeline-institution">{job.company}</p>
+              <ul className="detail-list">
+                {job.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </TiltCard>
 
       <section className="content-grid two-column">
         <TiltCard as="article" className="glass-card reveal-card depth-card">
@@ -333,37 +352,46 @@ function ProjectsPage() {
       <section className="project-showcase-grid">
         {projects.map((project) => (
           <TiltCard key={project.title} as="article" className="glass-card project-detail-card reveal-card depth-card">
-            <div className="project-media depth-media">
-              <img src={project.image} alt={`${project.title} related showcase visual`} loading="lazy" />
-            </div>
+            {project.image ? (
+              <div className="project-media depth-media">
+                <img src={project.image} alt={`${project.title} related showcase visual`} loading="lazy" />
+              </div>
+            ) : null}
 
             <div className="project-body">
               <p className="project-stack">{project.tech.join(' | ')}</p>
               <h2>{project.title}</h2>
+              {project.organisation ? <p className="project-organisation">{project.organisation}</p> : null}
               <p className="project-summary">{project.summary}</p>
 
-              <div className="project-section-block">
-                <h3>Purpose</h3>
-                <p>{project.purpose}</p>
-              </div>
+              {project.purpose ? (
+                <div className="project-section-block">
+                  <h3>Purpose</h3>
+                  <p>{project.purpose}</p>
+                </div>
+              ) : null}
 
-              <div className="project-section-block">
-                <h3>Key Features</h3>
-                <ul className="detail-list">
-                  {project.features.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
+              {project.features ? (
+                <div className="project-section-block">
+                  <h3>Key Features</h3>
+                  <ul className="detail-list">
+                    {project.features.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
 
-              <div className="project-section-block">
-                <h3>How It Was Built</h3>
-                <ol className="number-list">
-                  {project.buildSteps.map((step) => (
-                    <li key={step}>{step}</li>
-                  ))}
-                </ol>
-              </div>
+              {project.buildSteps ? (
+                <div className="project-section-block">
+                  <h3>How It Was Built</h3>
+                  <ol className="number-list">
+                    {project.buildSteps.map((step) => (
+                      <li key={step}>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+              ) : null}
 
               <div className="content-grid two-column compact-grid">
                 <div className="project-section-block">
@@ -398,19 +426,23 @@ function ProjectsPage() {
                 </div>
               </div>
 
-              <div className="project-actions">
-                <a href={project.github} target="_blank" rel="noreferrer" className="primary-button">
-                  View on GitHub
-                </a>
-              </div>
+              {project.github ? (
+                <div className="project-actions">
+                  <a href={project.github} target="_blank" rel="noreferrer" className="primary-button">
+                    View on GitHub
+                  </a>
+                </div>
+              ) : null}
 
-              <div className="project-gallery-row">
-                {project.gallery.map((image) => (
-                  <figure key={image} className="mini-gallery-card depth-media">
-                    <img src={image} alt={`${project.title} supporting visual`} loading="lazy" />
-                  </figure>
-                ))}
-              </div>
+              {project.gallery ? (
+                <div className="project-gallery-row">
+                  {project.gallery.map((image) => (
+                    <figure key={image} className="mini-gallery-card depth-media">
+                      <img src={image} alt={`${project.title} supporting visual`} loading="lazy" />
+                    </figure>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </TiltCard>
         ))}
@@ -565,6 +597,10 @@ function ContactPage() {
             </a>
             <a href={profile.github} className="contact-card" target="_blank" rel="noreferrer">
               <span>GitHub</span>
+              <strong>Open repositories</strong>
+            </a>
+            <a href={profile.githubSecondary} className="contact-card" target="_blank" rel="noreferrer">
+              <span>GitHub (QinisoMngo)</span>
               <strong>Open repositories</strong>
             </a>
           </div>

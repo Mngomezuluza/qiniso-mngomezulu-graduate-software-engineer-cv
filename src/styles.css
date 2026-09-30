@@ -673,6 +673,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
+  align-content: flex-start;
 }
 
 .tag {
@@ -756,6 +757,13 @@ img {
 .project-section-block {
   display: grid;
   gap: 0.65rem;
+  align-content: start;
+}
+
+.project-organisation {
+  margin: 0;
+  font-weight: 600;
+  color: var(--primary-strong);
 }
 
 .project-gallery-row {
