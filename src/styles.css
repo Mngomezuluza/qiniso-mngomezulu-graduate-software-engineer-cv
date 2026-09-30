@@ -58,7 +58,7 @@ img {
 
 .page-shell {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .page-main {
@@ -455,8 +455,8 @@ img {
 
 .hero-floating-stamp {
   position: absolute;
+  top: 0.85rem;
   right: -0.35rem;
-  bottom: 0.85rem;
   display: grid;
   gap: 0.25rem;
   min-width: 11rem;
@@ -961,5 +961,36 @@ a:focus {
 
   .hero-title {
     max-width: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header {
+    padding: 0.6rem 0;
+  }
+
+  .header-inner {
+    gap: 0.5rem;
+  }
+
+  .brand-kicker {
+    display: none;
+  }
+
+  /* One swipeable row instead of wrapping, so the sticky header stays short. */
+  .main-nav {
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-chip {
+    flex-shrink: 0;
+    padding: 0.55rem 0.9rem;
   }
 }

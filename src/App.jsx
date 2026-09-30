@@ -133,7 +133,7 @@ function PageShell({ children }) {
           <div>
             <p className="brand-kicker">Qiniso Mngomezulu</p>
             <NavLink className="brand-name" to="/">
-              Graduate Software Engineer CV
+              Software Engineer Portfolio
             </NavLink>
           </div>
           <nav className="main-nav" aria-label="Primary">
@@ -188,8 +188,8 @@ function DashboardPage() {
             <div className="hero-spotlight-frame">
               <HeroCluster />
               <div className="hero-floating-stamp">
-                <span>Graduate</span>
-                <strong>Software Engineer</strong>
+                <span>Currently</span>
+                <strong>IT Intern · PWD Xperts</strong>
               </div>
             </div>
             <div className="social-stack">
