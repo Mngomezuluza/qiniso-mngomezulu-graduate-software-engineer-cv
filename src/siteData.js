@@ -1,3 +1,8 @@
+const base = import.meta.env.BASE_URL;
+
+// Published to GitHub Pages as static files, where there is no API to store contact messages.
+export const staticSite = import.meta.env.VITE_STATIC_SITE === 'true';
+
 export const navItems = [
   { to: '/', label: 'Dashboard' },
   { to: '/about', label: 'About' },
@@ -10,7 +15,7 @@ export const dashboardCards = [
   {
     title: 'Profile Overview',
     to: '/about',
-    description: 'Professional summary, technical strengths, and the story behind the CV.'
+    description: 'Professional summary, work experience, technical strengths, and the story behind the CV.'
   },
   {
     title: 'Project Portfolio',
@@ -25,21 +30,25 @@ export const dashboardCards = [
   {
     title: 'Recruiter Contact',
     to: '/contact',
-    description: 'Share your company details and enquiry so it can be stored for follow-up.'
+    description: staticSite
+      ? 'Share your company details and enquiry by email for follow-up.'
+      : 'Share your company details and enquiry so it can be stored for follow-up.'
   }
 ];
 
 export const profile = {
   name: 'Qiniso Manqoba Mngomezulu',
-  title: 'Graduate Software Engineer',
+  title: 'Software Engineering Graduate',
+  headline: 'Software Engineering Graduate | Full Stack Developer | Business Intelligence',
   location: 'Johannesburg, South Africa',
   phone: '+27 67 552 3363',
   email: 'manqobamngo20@outlook.com',
   github: 'https://github.com/Mngomezuluza',
+  githubSecondary: 'https://github.com/QinisoMngo',
   linkedin: 'https://www.linkedin.com/in/qiniso-manqoba-mngomezulu-132b98377',
   summary:
-    'Graduate software developer with hands-on experience in C#, Java, JavaScript, Python, and SQL, with practical exposure to full-stack development, REST APIs, databases, machine learning, and IT support. I enjoy building structured, reliable software and translating complex problems into polished user-facing systems.',
-  portrait: '/assets/images/qiniso-mngomezulu-profile.jpeg',
+    'Software engineering graduate and IT Intern with hands-on experience across full-stack development, business intelligence and enterprise platform support. I build and secure production features on a multi-tenant business platform (Next.js, TypeScript, PostgreSQL/Supabase, Vercel) and support a client KPI dashboard programme built on TIBCO Spotfire, TIBCO Data Virtualization and an Enterprise Service Bus.',
+  portrait: `${base}assets/images/qiniso-mngomezulu-profile.jpeg`,
   availability:
     'Open to graduate software engineering, full-stack development, backend development, and junior platform roles.'
 };
@@ -47,32 +56,88 @@ export const profile = {
 export const socialLinks = [
   { label: 'LinkedIn', href: profile.linkedin },
   { label: 'GitHub', href: profile.github },
+  { label: 'GitHub (QinisoMngo)', href: profile.githubSecondary },
   { label: 'Email', href: `mailto:${profile.email}` }
 ];
 
+export const spokenLanguages = ['English', 'Afrikaans', 'isiZulu', 'Setswana', 'isiXhosa'];
+
 export const highlights = [
-  'Bachelor of Computing (Software Engineering) graduate pathway at Belgium Campus iTversity.',
-  'Project work spanning VR, optimisation, machine learning, full-stack development, and database-driven systems.',
-  'Previous office administration and IT support experience with strong organisational discipline.',
-  'Multilingual communicator: English, Afrikaans, isiZulu, Setswana, and isiXhosa.'
+  'IT Intern at PWD Xperts since July 2026, working across full-stack development, business intelligence, and enterprise platform support.',
+  'Built role-based access control, API security, and automated reporting on production Next.js, TypeScript, and Supabase platforms.',
+  'Supporting a client KPI dashboard programme on TIBCO Spotfire, TIBCO Data Virtualization, and an Enterprise Service Bus.',
+  'Bachelor of Computing (Software Engineering) graduate from Belgium Campus iTversity, now completing Honours.',
+  'Earlier office administration and IT support experience with strong organisational discipline.',
+  `Multilingual communicator: ${spokenLanguages.slice(0, -1).join(', ')}, and ${spokenLanguages.at(-1)}.`
 ];
 
 export const skills = [
   {
     title: 'Languages',
-    items: ['C#', 'Java', 'JavaScript', 'Python', 'SQL', 'PHP', 'F#']
+    items: ['C#', 'Java', 'JavaScript', 'TypeScript', 'Python', 'SQL', 'PHP', 'PowerShell']
   },
   {
     title: 'Frameworks & Tools',
-    items: ['React', 'Node.js', 'Express', '.NET', 'Avalonia', 'Unity', 'Flask', 'Dash', 'Git', 'Postman']
+    items: ['.NET', 'ASP.NET', 'Blazor', 'React', 'Next.js', 'Node.js', 'Express', 'Prisma', 'NextAuth.js', 'Tailwind CSS', 'Git', 'GitHub', 'Postman', 'Vercel', 'Visual Studio', 'VS Code', 'Unity']
   },
   {
-    title: 'Databases & Platforms',
-    items: ['MongoDB', 'MariaDB', 'MySQL', 'SQL Server', 'Oracle', 'Firebase', 'Supabase']
+    title: 'Databases & APIs',
+    items: ['SQL Server', 'PostgreSQL', 'Supabase (Storage, Row Level Security)', 'MySQL', 'Oracle', 'MongoDB', 'Firebase', 'REST APIs', 'JSON', 'XML', 'OAuth', 'JWT', 'GraphQL']
   },
   {
-    title: 'Engineering Areas',
-    items: ['REST APIs', 'Machine Learning', 'Desktop Applications', 'VR Development', 'Database Design', 'UI Engineering']
+    title: 'Business Intelligence & Data',
+    items: ['TIBCO Spotfire', 'TIBCO Data Virtualization (TDV)', 'KPI Dashboard Development', 'Business Requirements Documents (BRDs)', 'Database Administration', 'Data Warehousing', 'Reporting']
+  },
+  {
+    title: 'Integration',
+    items: ['Enterprise Service Bus (TIBCO BusinessWorks)', 'Boomi', 'Model Context Protocol (MCP) connectors']
+  },
+  {
+    title: 'Servers & Incident Management',
+    items: ['Windows Server (Spotfire, TDV and ESB servers)', 'Windows Services', 'Tomcat configuration', 'JDK runtimes', 'TLS certificates & keystores', 'Server log analysis', 'Root Cause Analysis (RCA)']
+  },
+  {
+    title: 'Identity & Cloud Administration',
+    items: ['Active Directory', 'Microsoft Entra ID', 'Microsoft 365 Admin Center', 'SharePoint Administration', 'Document360 (KMS)', 'OneDrive-to-SharePoint Migration']
+  },
+  {
+    title: 'Security & DevOps',
+    items: ['Role-based access control', 'Multi-tenant data scoping', 'Audit logging', 'MFA', 'Secret management', 'Regression and integration testing', 'Vercel deployments and cron jobs', 'Database backup and restore']
+  },
+  {
+    title: 'AI-Assisted Development',
+    items: ['Claude Code', 'GitHub Copilot', 'OpenAI Codex']
+  }
+];
+
+export const experience = [
+  {
+    role: 'IT Intern',
+    company: 'PWD Xperts',
+    period: 'July 2026 - Present',
+    leadCount: 4,
+    points: [
+      'Full-stack development on the company\'s in-house dashboard (full admin rights): designed and built the role-based access control layer across HR, finance, hotel operations and tender modules, and added authentication, company scoping and audit logging to previously unauthenticated API routes, backed by regression tests written to verify coverage.',
+      'Designed and built an automated bi-weekly reporting system for the CEO\'s PhD research platform, from a cron-triggered data pipeline through to an admin review-and-approval workflow and email delivery; deployed the platform and report to the CEO on a bi-weekly basis.',
+      'Contributed to a consolidated Root Cause Analysis (RCA) of production outages across Spotfire Server, TDV, the ESB and a web portal: gathered evidence from server logs, configuration files and timestamps, helped identify causes such as a disabled Tomcat class-path setting, a missing JDK runtime and a TLS certificate/keystore mismatch, and drafted remediation and monitoring recommendations.',
+      'Support Business Intelligence dashboard development for a client KPI dashboard programme, shadowing the Head of Dashboard Development; started TIBCO Spotfire and Spotfire Administration training in July 2026 and am learning TIBCO Data Virtualization (TDV) hands-on, alongside database administration and data warehousing tasks.',
+      'Write and revise Business Requirements Documents (BRDs) for KPI dashboards, covering current and target state, functional requirements, data sources and dashboard ownership, and update them through review rounds with senior analysts.',
+      'Take part in live troubleshooting sessions with infrastructure teams and vendors on the Windows servers hosting Spotfire, TDV and the ESB, and manage Active Directory and Microsoft Entra ID accounts and groups for BI platform access.',
+      'Diagnosed and resolved production issues on the in-house dashboard, including silent document-upload failures, a blocked database migration path, slow pages fixed through database indexing and fewer queries, and conflicting finance totals across modules.',
+      'Took over ownership (full admin rights) of internal client projects following the departure of the Project Manager: SOC/Cybersecurity, Enterprise Service Bus (ESB), a client Customer Portal website, and the Knowledge Management System (Document360); update project plans, coordinate with the managed detection and response (MDR) provider, and log and follow up Boomi platform support tickets.',
+      'Administer the Microsoft 365 Admin Center (full admin rights) and led the migration of company data from OneDrive to SharePoint, acting as SharePoint administrator.',
+      'Shadow project leads/managers on documentation, distributing reports, and presenting monthly and weekly project reports; turn meeting outcomes into work-plan updates and risk registers, and collaborate with Tender Managers to integrate Sage Accounting data into the internal PWD Xperts dashboard.'
+    ]
+  },
+  {
+    role: 'Office Administrator & IT Support',
+    company: 'SOWISO Consultants PTY LTD & SOWISO Foundation NPC',
+    period: '2017 - 2020',
+    points: [
+      'Provided technical support including software installation, troubleshooting, hardware setup, and day-to-day systems assistance.',
+      'Maintained organisational records, supported administration processes, and used digital tools such as Outlook, Zoom, and Microsoft Teams.',
+      'Automated repetitive work using Excel macros and basic scripting, while assisting with backups, IT inventory, and bookkeeping support.'
+    ]
   }
 ];
 
@@ -94,7 +159,55 @@ export const projectIntro =
 
 export const projects = [
   {
+    title: 'PWD Group Portal – Multi-Tenant Business Management Platform',
+    slug: 'pwd-group-portal',
+    category: 'Professional',
+    organisation: 'PWD Xperts',
+    summary:
+      'A production, multi-tenant platform spanning CRM, HR, finance, procurement, legal and tender management across the group\'s companies.',
+    contribution: [
+      'Designed and built the role-based access control layer across HR, finance, hotel operations and tender modules.',
+      'Secured previously unprotected API routes with authentication, company scoping and audit logging, backed by regression tests.',
+      'Improved dashboard performance through database indexing and query reduction.',
+      'Moved document uploads to Supabase Storage and reconciled conflicting finance calculations.',
+      'Built spreadsheet and Sage data imports and an AI (MCP) connector for searching the tender library.'
+    ],
+    tech: ['TypeScript', 'Next.js', 'React', 'PostgreSQL', 'Prisma', 'Supabase', 'NextAuth.js', 'Tailwind CSS', 'Vercel', 'MCP'],
+    skills: ['Role-based access control', 'API security', 'Multi-tenant data scoping', 'Audit logging', 'Regression testing', 'Performance tuning', 'Data imports']
+  },
+  {
+    title: 'Research Portal – Automated Survey & Reporting Platform',
+    slug: 'research-portal',
+    category: 'Professional',
+    organisation: 'PWD Xperts',
+    summary:
+      'An end-to-end automated bi-weekly reporting system for a PhD research survey platform.',
+    contribution: [
+      'Built a cron-triggered pipeline that assembles a multi-document report pack from live survey data.',
+      'Added an admin review-and-approval workflow and email delivery.',
+      'Diagnosed and fixed a production-only chart-rendering bug by implementing custom vector-glyph label rendering with a bundled font.'
+    ],
+    tech: ['Next.js', 'React', 'TypeScript', 'Supabase', 'Recharts', 'docx', 'Vercel Cron'],
+    skills: ['Automated reporting', 'Scheduled jobs', 'Approval workflows', 'Document generation', 'Production debugging']
+  },
+  {
+    title: 'KPI Dashboard Programme – Business Intelligence',
+    slug: 'kpi-dashboard-programme',
+    category: 'Professional',
+    organisation: 'Client project, PWD Xperts',
+    summary:
+      'Supporting the build and deployment of executive KPI dashboards for a public-sector client on TIBCO Spotfire, fed by TIBCO Data Virtualization and an Enterprise Service Bus.',
+    contribution: [
+      'Write and revise Business Requirements Documents (current and target state, functional requirements, data sources, dashboard ownership) through review cycles with senior analysts.',
+      'Support UAT and progress reporting.'
+    ],
+    tech: ['TIBCO Spotfire', 'TIBCO Data Virtualization (TDV)', 'TIBCO BusinessWorks (ESB)', 'Boomi', 'Windows Server'],
+    skills: ['Business intelligence', 'Requirements documentation', 'User acceptance testing', 'Stakeholder reporting']
+  },
+  {
     title: 'VR Interactive Modelling Application',
+    slug: 'vr-interactive-modelling-application',
+    category: 'Academic',
     summary:
       'A Unity-based VR modelling application that allows users to draw, edit, and manipulate geometry using VR controllers, with snapping, undo/redo, multiple modelling tools, and DXF export for fabrication workflows.',
     purpose:
@@ -122,15 +235,17 @@ export const projects = [
     tech: ['Unity', 'C#', 'OpenXR', 'XR Interaction Toolkit', 'Unity Input System'],
     skills: ['VR application development', '3D interaction design', 'Unity scripting', 'Input handling', 'Geometry manipulation', 'Feature integration'],
     github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
+    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
     gallery: [
-      '/assets/gallery/unity-capstone.jpeg',
-      '/assets/gallery/vr-headset-integration.jpeg',
-      '/assets/gallery/capstone-team.jpeg'
+      `${base}assets/gallery/unity-capstone.jpeg`,
+      `${base}assets/gallery/vr-headset-integration.jpeg`,
+      `${base}assets/gallery/capstone-team.jpeg`
     ]
   },
   {
     title: 'LPR381 Linear and Integer Programming Solver',
+    slug: 'lpr381-linear-and-integer-programming-solver',
+    category: 'Academic',
     summary:
       'A desktop optimisation solver that combines a C# Avalonia interface with an F# algorithm engine to solve linear and integer programming problems using methods such as Simplex, Branch and Bound, and Cutting Plane.',
     purpose:
@@ -157,12 +272,12 @@ export const projects = [
     ],
     tech: ['C#', 'F#', 'Avalonia UI', '.NET', 'Math and optimisation libraries'],
     skills: ['Desktop application development', 'Cross-language integration', 'UI design for technical systems', 'Structured input processing', 'Optimisation workflows'],
-    github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/aws-azure-summit.jpeg']
+    github: profile.github
   },
   {
     title: 'Maintenance Management App',
+    slug: 'maintenance-management-app',
+    category: 'Academic',
     summary:
       'A full-stack maintenance management application for logging service jobs, tracking progress, updating statuses, and archiving completed records through a REST API backend and browser-based interface.',
     purpose:
@@ -190,12 +305,12 @@ export const projects = [
     ],
     tech: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'JavaScript', 'HTML', 'CSS'],
     skills: ['Full-stack development', 'REST API design', 'CRUD implementation', 'NoSQL integration', 'Schema validation', 'Frontend data rendering'],
-    github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/csr-lupas-walk.jpeg']
+    github: profile.github
   },
   {
     title: 'Poised Project Management System',
+    slug: 'poised-project-management-system',
+    category: 'Academic',
     summary:
       'A Java-based project management system for capturing, updating, searching, deleting, and finalising engineering project records using JDBC and MariaDB.',
     purpose:
@@ -222,12 +337,12 @@ export const projects = [
     ],
     tech: ['Java', 'JDBC', 'MariaDB', 'SQL'],
     skills: ['Java development', 'Relational database integration', 'SQL query design', 'Console application development', 'Business rule implementation'],
-    github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/st-benedicts-awards.jpeg']
+    github: profile.github
   },
   {
     title: 'Customer Churn Prediction System',
+    slug: 'customer-churn-prediction-system',
+    category: 'Academic',
     summary:
       'A machine learning application that predicts telecom customer churn using data preprocessing, model training, interactive analytics, and browser-based prediction interfaces built with Dash and Flask.',
     purpose:
@@ -254,12 +369,12 @@ export const projects = [
     ],
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'Jupyter Notebook'],
     skills: ['Machine learning workflow development', 'Model deployment', 'Feature engineering', 'Dashboard creation', 'Prediction pipeline design'],
-    github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/beyond-adventure-graduation.jpeg']
+    github: profile.github
   },
   {
     title: 'Student Performance Prediction System',
+    slug: 'student-performance-prediction-system',
+    category: 'Academic',
     summary:
       'A machine learning system that uses academic and behavioural data to estimate student performance and surface predictions through interactive Dash and Flask applications.',
     purpose:
@@ -286,9 +401,7 @@ export const projects = [
     ],
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'HTML', 'CSS', 'JavaScript'],
     skills: ['Predictive model development', 'Feature engineering', 'Model deployment', 'Interactive dashboard development', 'ML application integration'],
-    github: profile.github,
-    image: '/assets/gallery/vr-headset-integration.jpeg',
-    gallery: ['/assets/gallery/ironman-completion.jpeg']
+    github: profile.github
   }
 ];
 
@@ -335,26 +448,50 @@ export const achievements = [
 export const documents = [
   {
     title: 'ATS CV',
-    description: 'Applicant tracking system friendly CV in Word format.',
-    href: '/assets/docs/Qiniso_Mngomezulu_CV_ATS.docx',
+    description: 'Applicant tracking system friendly CV in Word format, updated with current experience.',
+    href: `${base}assets/docs/Qiniso_Mngomezulu_CV_ATS.docx`,
     type: 'DOCX'
-  },
-  {
-    title: 'Academic Transcript',
-    description: 'Belgium Campus academic record and results summary.',
-    href: '/assets/docs/AcademicPdf-Transcript.pdf',
-    type: 'PDF'
   },
   {
     title: 'CV PDF',
     description: 'Printable CV version for manual review.',
-    href: '/assets/docs/CV-Qiniso-Manqoba-Mngomezulu.pdf',
+    href: `${base}assets/docs/CV-Qiniso-Manqoba-Mngomezulu.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'Certified Academic Transcript',
+    description: 'Belgium Campus academic record, certified September 2026.',
+    href: `${base}assets/docs/Certified-Academic-Transcript-2026.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'In-Service Training Confirmation',
+    description: 'Belgium Campus letter confirming the 2026 experiential learning year.',
+    href: `${base}assets/docs/In-Service-Training-Confirmation-2026.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'Proof of Registration',
+    description: 'Belgium Campus proof of registration for the 2025 academic year.',
+    href: `${base}assets/docs/Proof-of-Registration-2025.pdf`,
     type: 'PDF'
   },
   {
     title: 'Business Skills Diploma',
     description: 'Foundation Diploma in Business Skills certificate.',
-    href: '/assets/docs/L3-FDip.Skill-Mngomezulu-Qiniso.pdf',
+    href: `${base}assets/docs/L3-FDip.Skill-Mngomezulu-Qiniso.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'ICDL e-Learner Platinum Certificate',
+    description: 'ICDL South Africa e-Learner Platinum certificate in core ICT skills (2015).',
+    href: `${base}assets/docs/ICDL-eLearner-Platinum-Certificate.pdf`,
+    type: 'PDF'
+  },
+  {
+    title: 'Beyond Adventure Certificates',
+    description: 'Gap-year graduation certificate and Level 2 Adventure Related Learning certificate (2022).',
+    href: `${base}assets/docs/Beyond-Adventure-Certificates.pdf`,
     type: 'PDF'
   }
 ];
@@ -372,29 +509,37 @@ export const gallerySections = [
     title: 'Innovation and Events',
     description: 'Conference exposure, teamwork, and project showcase moments.',
     images: [
-      { src: '/assets/gallery/aws-azure-summit.jpeg', alt: 'Qiniso at the AWS Summit Johannesburg event.' },
-      { src: '/assets/gallery/capstone-team.jpeg', alt: 'Qiniso with teammates at a formal graduation or project event.' },
-      { src: '/assets/gallery/unity-capstone.jpeg', alt: 'VR capstone poster presentation showing the project overview.' },
-      { src: '/assets/gallery/vr-headset-integration.jpeg', alt: 'Qiniso wearing a VR headset while testing the project setup.' }
+      { src: `${base}assets/gallery/aws-azure-summit.jpeg`, alt: 'Qiniso at the AWS Summit Johannesburg event.' },
+      { src: `${base}assets/gallery/capstone-team.jpeg`, alt: 'Qiniso with teammates at a formal graduation or project event.' },
+      { src: `${base}assets/gallery/unity-capstone.jpeg`, alt: 'VR capstone poster presentation showing the project overview.' },
+      { src: `${base}assets/gallery/vr-headset-integration.jpeg`, alt: 'Qiniso wearing a VR headset while testing the project setup.' }
     ]
   },
   {
     title: 'Beyond Adventure',
     description: 'Leadership, resilience, physical endurance, and growth beyond the classroom.',
     images: [
-      { src: '/assets/gallery/beyond-adventure-activities.jpeg', alt: 'Qiniso taking part in Beyond Adventure physical activities.' },
-      { src: '/assets/gallery/beyond-adventure-graduation.jpeg', alt: 'Qiniso with peers at the Beyond Adventure graduation.' },
-      { src: '/assets/gallery/ironman-completion.jpeg', alt: 'Qiniso during an endurance or team-building challenge.' },
-      { src: '/assets/gallery/csr-lupas-walk.jpeg', alt: 'Community or outreach event photo connected to CSR activities.' }
+      { src: `${base}assets/gallery/beyond-adventure-activities.jpeg`, alt: 'Qiniso taking part in Beyond Adventure physical activities.' },
+      { src: `${base}assets/gallery/beyond-adventure-graduation.jpeg`, alt: 'Qiniso with peers at the Beyond Adventure graduation.' },
+      { src: `${base}assets/gallery/ironman-completion.jpeg`, alt: 'Qiniso during an endurance or team-building challenge.' },
+      { src: `${base}assets/gallery/csr-lupas-walk.jpeg`, alt: 'Community or outreach event photo connected to CSR activities.' }
     ]
   },
   {
     title: 'School Journey',
     description: 'Moments from St Benedict’s that reflect discipline, recognition, and team sport.',
     images: [
-      { src: '/assets/gallery/st-benedicts-awards.jpeg', alt: 'Qiniso receiving an award at St Benedict’s.' },
-      { src: '/assets/gallery/st-benedicts-soccer.jpeg', alt: 'Qiniso playing soccer for St Benedict’s.' },
-      { src: '/assets/gallery/st-benedicts-soccer-2.jpeg', alt: 'Another football action shot from Qiniso’s St Benedict’s years.' }
+      { src: `${base}assets/gallery/st-benedicts-awards.jpeg`, alt: 'Qiniso receiving an award at St Benedict’s.' },
+      { src: `${base}assets/gallery/st-benedicts-soccer.jpeg`, alt: 'Qiniso playing soccer for St Benedict’s.' },
+      { src: `${base}assets/gallery/st-benedicts-soccer-2.jpeg`, alt: 'Another football action shot from Qiniso’s St Benedict’s years.' }
     ]
   }
+];
+
+// Counted up on the home page; derived from the data above so the numbers stay accurate.
+export const impactStats = [
+  { value: projects.length, label: 'Engineering projects' },
+  { value: projects.filter((project) => project.category === 'Professional').length, label: 'Professional projects' },
+  { value: skills.find((group) => group.title === 'Languages').items.length, label: 'Programming languages' },
+  { value: spokenLanguages.length, label: 'Spoken languages' }
 ];

@@ -1,0 +1,73 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - run: npm ci
+      - run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}/
+          VITE_STATIC_SITE: 'true'
+      # GitHub Pages serves 404.html for unknown paths, so deep links like /about still load the app.
+      - run: cp dist/index.html dist/404.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: public
+      # Fails the run if the live site is missing any image or document, or serves the
+      # 404 page (HTML) in its place.
+      - name: Check the live site serves every asset
+        env:
+          SITE: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          fetch() { curl -s -o /dev/null -w '%{http_code} %{content_type}' "$1"; }
+          for attempt in 1 2 3 4 5 6; do
+            [ "$(fetch "$SITE" | cut -d' ' -f1)" = 200 ] && break
+            sleep 10
+          done
+          failed=0
+          for path in $(cd public && find assets -type f | sort); do
+            result=$(fetch "$SITE$path")
+            echo "$result  $path"
+            case "$result" in
+              "200 text/html"*) echo "::error::$path is served as HTML (missing file)"; failed=1 ;;
+              200*) ;;
+              *) echo "::error::$path returned $result"; failed=1 ;;
+            esac
+          done
+          exit $failed
