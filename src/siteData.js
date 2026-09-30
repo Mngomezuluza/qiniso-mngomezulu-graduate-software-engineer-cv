@@ -113,14 +113,15 @@ export const experience = [
     role: 'IT Intern',
     company: 'PWD Xperts',
     period: 'July 2026 - Present',
+    leadCount: 4,
     points: [
+      'Full-stack development on the company\'s in-house dashboard (full admin rights): designed and built the role-based access control layer across HR, finance, hotel operations and tender modules, and added authentication, company scoping and audit logging to previously unauthenticated API routes, backed by regression tests written to verify coverage.',
+      'Designed and built an automated bi-weekly reporting system for the CEO\'s PhD research platform, from a cron-triggered data pipeline through to an admin review-and-approval workflow and email delivery; deployed the platform and report to the CEO on a bi-weekly basis.',
+      'Contributed to a consolidated Root Cause Analysis (RCA) of production outages across Spotfire Server, TDV, the ESB and a web portal: gathered evidence from server logs, configuration files and timestamps, helped identify causes such as a disabled Tomcat class-path setting, a missing JDK runtime and a TLS certificate/keystore mismatch, and drafted remediation and monitoring recommendations.',
       'Support Business Intelligence dashboard development for a client KPI dashboard programme, shadowing the Head of Dashboard Development; started TIBCO Spotfire and Spotfire Administration training in July 2026 and am learning TIBCO Data Virtualization (TDV) hands-on, alongside database administration and data warehousing tasks.',
       'Write and revise Business Requirements Documents (BRDs) for KPI dashboards, covering current and target state, functional requirements, data sources and dashboard ownership, and update them through review rounds with senior analysts.',
-      'Contributed to a consolidated Root Cause Analysis (RCA) of production outages across Spotfire Server, TDV, the ESB and a web portal: gathered evidence from server logs, configuration files and timestamps, helped identify causes such as a disabled Tomcat class-path setting, a missing JDK runtime and a TLS certificate/keystore mismatch, and drafted remediation and monitoring recommendations.',
       'Take part in live troubleshooting sessions with infrastructure teams and vendors on the Windows servers hosting Spotfire, TDV and the ESB, and manage Active Directory and Microsoft Entra ID accounts and groups for BI platform access.',
-      'Full-stack development on the company\'s in-house dashboard (full admin rights): designed and built the role-based access control layer across HR, finance, hotel operations and tender modules, and added authentication, company scoping and audit logging to previously unauthenticated API routes, backed by regression tests written to verify coverage.',
       'Diagnosed and resolved production issues on the in-house dashboard, including silent document-upload failures, a blocked database migration path, slow pages fixed through database indexing and fewer queries, and conflicting finance totals across modules.',
-      'Designed and built an automated bi-weekly reporting system for the CEO\'s PhD research platform, from a cron-triggered data pipeline through to an admin review-and-approval workflow and email delivery; deployed the platform and report to the CEO on a bi-weekly basis.',
       'Took over ownership (full admin rights) of internal client projects following the departure of the Project Manager: SOC/Cybersecurity, Enterprise Service Bus (ESB), a client Customer Portal website, and the Knowledge Management System (Document360); update project plans, coordinate with the managed detection and response (MDR) provider, and log and follow up Boomi platform support tickets.',
       'Administer the Microsoft 365 Admin Center (full admin rights) and led the migration of company data from OneDrive to SharePoint, acting as SharePoint administrator.',
       'Shadow project leads/managers on documentation, distributing reports, and presenting monthly and weekly project reports; turn meeting outcomes into work-plan updates and risk registers, and collaborate with Tender Managers to integrate Sage Accounting data into the internal PWD Xperts dashboard.'
@@ -157,6 +158,8 @@ export const projectIntro =
 export const projects = [
   {
     title: 'PWD Group Portal – Multi-Tenant Business Management Platform',
+    slug: 'pwd-group-portal',
+    category: 'Professional',
     organisation: 'PWD Xperts',
     summary:
       'A production, multi-tenant platform spanning CRM, HR, finance, procurement, legal and tender management across the group\'s companies.',
@@ -172,6 +175,8 @@ export const projects = [
   },
   {
     title: 'Research Portal – Automated Survey & Reporting Platform',
+    slug: 'research-portal',
+    category: 'Professional',
     organisation: 'PWD Xperts',
     summary:
       'An end-to-end automated bi-weekly reporting system for a PhD research survey platform.',
@@ -185,6 +190,8 @@ export const projects = [
   },
   {
     title: 'KPI Dashboard Programme – Business Intelligence',
+    slug: 'kpi-dashboard-programme',
+    category: 'Professional',
     organisation: 'Client project, PWD Xperts',
     summary:
       'Supporting the build and deployment of executive KPI dashboards for a public-sector client on TIBCO Spotfire, fed by TIBCO Data Virtualization and an Enterprise Service Bus.',
@@ -197,6 +204,8 @@ export const projects = [
   },
   {
     title: 'VR Interactive Modelling Application',
+    slug: 'vr-interactive-modelling-application',
+    category: 'Academic',
     summary:
       'A Unity-based VR modelling application that allows users to draw, edit, and manipulate geometry using VR controllers, with snapping, undo/redo, multiple modelling tools, and DXF export for fabrication workflows.',
     purpose:
@@ -233,6 +242,8 @@ export const projects = [
   },
   {
     title: 'LPR381 Linear and Integer Programming Solver',
+    slug: 'lpr381-linear-and-integer-programming-solver',
+    category: 'Academic',
     summary:
       'A desktop optimisation solver that combines a C# Avalonia interface with an F# algorithm engine to solve linear and integer programming problems using methods such as Simplex, Branch and Bound, and Cutting Plane.',
     purpose:
@@ -259,12 +270,12 @@ export const projects = [
     ],
     tech: ['C#', 'F#', 'Avalonia UI', '.NET', 'Math and optimisation libraries'],
     skills: ['Desktop application development', 'Cross-language integration', 'UI design for technical systems', 'Structured input processing', 'Optimisation workflows'],
-    github: profile.github,
-    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
-    gallery: [`${base}assets/gallery/aws-azure-summit.jpeg`]
+    github: profile.github
   },
   {
     title: 'Maintenance Management App',
+    slug: 'maintenance-management-app',
+    category: 'Academic',
     summary:
       'A full-stack maintenance management application for logging service jobs, tracking progress, updating statuses, and archiving completed records through a REST API backend and browser-based interface.',
     purpose:
@@ -292,12 +303,12 @@ export const projects = [
     ],
     tech: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'JavaScript', 'HTML', 'CSS'],
     skills: ['Full-stack development', 'REST API design', 'CRUD implementation', 'NoSQL integration', 'Schema validation', 'Frontend data rendering'],
-    github: profile.github,
-    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
-    gallery: [`${base}assets/gallery/csr-lupas-walk.jpeg`]
+    github: profile.github
   },
   {
     title: 'Poised Project Management System',
+    slug: 'poised-project-management-system',
+    category: 'Academic',
     summary:
       'A Java-based project management system for capturing, updating, searching, deleting, and finalising engineering project records using JDBC and MariaDB.',
     purpose:
@@ -324,12 +335,12 @@ export const projects = [
     ],
     tech: ['Java', 'JDBC', 'MariaDB', 'SQL'],
     skills: ['Java development', 'Relational database integration', 'SQL query design', 'Console application development', 'Business rule implementation'],
-    github: profile.github,
-    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
-    gallery: [`${base}assets/gallery/st-benedicts-awards.jpeg`]
+    github: profile.github
   },
   {
     title: 'Customer Churn Prediction System',
+    slug: 'customer-churn-prediction-system',
+    category: 'Academic',
     summary:
       'A machine learning application that predicts telecom customer churn using data preprocessing, model training, interactive analytics, and browser-based prediction interfaces built with Dash and Flask.',
     purpose:
@@ -356,12 +367,12 @@ export const projects = [
     ],
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'Jupyter Notebook'],
     skills: ['Machine learning workflow development', 'Model deployment', 'Feature engineering', 'Dashboard creation', 'Prediction pipeline design'],
-    github: profile.github,
-    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
-    gallery: [`${base}assets/gallery/beyond-adventure-graduation.jpeg`]
+    github: profile.github
   },
   {
     title: 'Student Performance Prediction System',
+    slug: 'student-performance-prediction-system',
+    category: 'Academic',
     summary:
       'A machine learning system that uses academic and behavioural data to estimate student performance and surface predictions through interactive Dash and Flask applications.',
     purpose:
@@ -388,9 +399,7 @@ export const projects = [
     ],
     tech: ['Python', 'scikit-learn', 'pandas', 'Dash', 'Flask', 'Plotly', 'HTML', 'CSS', 'JavaScript'],
     skills: ['Predictive model development', 'Feature engineering', 'Model deployment', 'Interactive dashboard development', 'ML application integration'],
-    github: profile.github,
-    image: `${base}assets/gallery/vr-headset-integration.jpeg`,
-    gallery: [`${base}assets/gallery/ironman-completion.jpeg`]
+    github: profile.github
   }
 ];
 
